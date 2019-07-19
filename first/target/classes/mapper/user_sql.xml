@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+    <select id="selectByEmail" resultType="first.sample.vo.UserVO">
+        <![CDATA[
+          SELECT
+              EMAIL,
+              NAME
+          FROM
+              USER
+          WHERE
+              EMAIL = #{email}       
+      ]]>
+    </select>
+    
+    <select id="selectById" resultType="first.sample.vo.UserVO">
+        <![CDATA[
+          SELECT
+              ID,
+              PASSWORD
+          FROM
+              USER
+          WHERE
+              ID = #{id}       
+      ]]>
+    </select>
+    
+    <insert id="register">
+        <![CDATA[
+            INSERT INTO USER
+            (
+                EMAIL,
+                ID,
+                NAME,
+                PASSWORD,
+                REGDATE
+            )
+            VALUES
+            (
+                #{email},
+                #{id},
+                #{name},
+                #{pw},
+                SYSDATE()
+            )
+        ]]>
+    </insert>
+
+	<select id="detailInfo" resultType="first.sample.vo.UserVO">
+        <![CDATA[
+            SELECT
+            	IDX,
+                ID,
+                PASSWORD,
+                EMAIL
+            FROM
+                USER
+            WHERE
+              IDX = #{ idx}       
+        ]]>
+	</select>
+	
+		<update id="updateInfo" parameterType="first.sample.vo.UserVO">
+        <![CDATA[
+            UPDATE
+                USER
+            SET
+                PASSWORD = #{ PASS},
+                EMAIL = #{ EMAIL}
+            WHERE
+                IDX = #{ idx}
+        ]]>
+	</update>
+	
+	<update id="modify" parameterType="first.sample.vo.UserVO">
+        <![CDATA[
+            UPDATE
+                USER
+            SET
+                PASSWORD = #{ PASSWORD},
+                EMAIL = #{ EMAIL}
+            WHERE
+                IDX = #{ IDX}
+        ]]>
+	</update>
+</mapper>
+
